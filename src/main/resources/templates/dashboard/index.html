@@ -9,48 +9,48 @@
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="ff-hud-card h-100">
                     <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div class="ff-card-subtitle text-muted text-uppercase fw-bold" style="font-size: 0.7rem;">Usuarios Activos</div>
+                        <div class="ff-card-subtitle text-muted text-uppercase fw-bold" style="font-size: 0.7rem;">Usuarios Totales</div>
                         <i class="bi bi-people text-primary fs-4"></i>
                     </div>
-                    <div class="ff-stat-value">124</div>
+                    <div class="ff-stat-value" th:text="${stats.totalUsuarios}">0</div>
                     <div class="mt-2 text-success" style="font-size: 0.8rem;">
-                        <i class="bi bi-arrow-up-short"></i> 12% vs mes anterior
+                        <i class="bi bi-activity"></i> Base de datos activa
                     </div>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="ff-hud-card h-100">
                     <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div class="ff-card-subtitle text-muted text-uppercase fw-bold" style="font-size: 0.7rem;">Ingresos Mes</div>
+                        <div class="ff-card-subtitle text-muted text-uppercase fw-bold" style="font-size: 0.7rem;">Ingresos Recaudados</div>
                         <i class="bi bi-currency-dollar text-primary fs-4"></i>
                     </div>
-                    <div class="ff-stat-value">3,450€</div>
+                    <div class="ff-stat-value" th:text="${stats.ingresosTotales + '€'}">0€</div>
                     <div class="mt-2 text-success" style="font-size: 0.8rem;">
-                        <i class="bi bi-arrow-up-short"></i> 5% vs mes anterior
+                        <i class="bi bi-arrow-up-short"></i> Acumulado histórico
                     </div>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="ff-hud-card h-100">
                     <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div class="ff-card-subtitle text-muted text-uppercase fw-bold" style="font-size: 0.7rem;">Asistencias Hoy</div>
-                        <i class="bi bi-calendar-check text-primary fs-4"></i>
+                        <div class="ff-card-subtitle text-muted text-uppercase fw-bold" style="font-size: 0.7rem;">Balance Operativo</div>
+                        <i class="bi bi-piggy-bank text-primary fs-4"></i>
                     </div>
-                    <div class="ff-stat-value">42</div>
+                    <div class="ff-stat-value" th:classappend="${stats.balance < 0 ? 'text-danger' : 'text-success'}" th:text="${stats.balance + '€'}">0€</div>
                     <div class="mt-2 text-muted" style="font-size: 0.8rem;">
-                        <i class="bi bi-clock"></i> Actualizado hace 5m
+                        <i class="bi bi-calculator"></i> Ingresos - Gastos
                     </div>
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="ff-hud-card h-100" style="border-color: var(--ff-primary);">
                     <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div class="ff-card-subtitle text-muted text-uppercase fw-bold" style="font-size: 0.7rem;">Estatus Sistema</div>
-                        <i class="bi bi-shield-check text-primary fs-4"></i>
+                        <div class="ff-card-subtitle text-muted text-uppercase fw-bold" style="font-size: 0.7rem;">Asistencias Hoy</div>
+                        <i class="bi bi-calendar-check text-primary fs-4"></i>
                     </div>
-                    <div class="ff-stat-value" style="font-size: 1.5rem;">OPERATIVO</div>
+                    <div class="ff-stat-value" th:text="${stats.asistenciasHoy}">0</div>
                     <div class="mt-2 text-primary" style="font-size: 0.8rem;">
-                        <i class="bi bi-cpu"></i> Nodo Principal: Atlas-1
+                        <i class="bi bi-cpu"></i> Nodo Operativo
                     </div>
                 </div>
             </div>
@@ -59,11 +59,15 @@
         <div class="row g-4">
             <div class="col-12 col-lg-8">
                 <div class="ff-hud-card h-100">
-                    <h3 class="h5 fw-bold mb-4">Actividad del Centro</h3>
-                    <div style="height: 300px; display: grid; place-items: center; border: 1px dashed var(--ff-border); border-radius: var(--radius-md);">
-                        <div class="text-center">
-                            <i class="bi bi-graph-up fs-1 text-muted opacity-25"></i>
-                            <p class="text-muted mt-2">Módulo de Gráficos en preparación...</p>
+                    <h3 class="h5 fw-bold mb-4">Actividad Reciente del Sistema</h3>
+                    <div style="height: 300px; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 1px dashed var(--ff-border); border-radius: var(--radius-md);">
+                        <i class="bi bi-terminal fs-1 text-muted opacity-25"></i>
+                        <p class="text-muted mt-3 small">Monitor de eventos en tiempo real activo.</p>
+                        <div class="text-start p-3 bg-dark bg-opacity-50 rounded mt-2" style="width: 80%; font-family: monospace; font-size: 0.75rem; color: var(--ff-primary);">
+                            <div>[SYS] Acceso concedido a Administrador...</div>
+                            <div>[FIN] Pago registrado REF-A192...</div>
+                            <div>[OPS] Check-in usuario ID: 104...</div>
+                            <div class="blink">_</div>
                         </div>
                     </div>
                 </div>
@@ -74,12 +78,12 @@
                     <div class="list-group list-group-flush bg-transparent">
                         <div class="list-group-item bg-transparent border-secondary-subtle px-0 py-3">
                             <div class="d-flex gap-3">
-                                <div class="bg-danger bg-opacity-10 text-danger rounded p-2" style="height: fit-content;">
-                                    <i class="bi bi-credit-card"></i>
+                                <div class="bg-primary bg-opacity-10 text-primary rounded p-2" style="height: fit-content;">
+                                    <i class="bi bi-info-circle"></i>
                                 </div>
                                 <div>
-                                    <div class="fw-bold" style="font-size: 0.9rem;">5 Pagos Vencidos</div>
-                                    <div class="text-muted" style="font-size: 0.75rem;">Revisión de cobros pendientes necesaria.</div>
+                                    <div class="fw-bold" style="font-size: 0.9rem;">Membresías Activas</div>
+                                    <div class="text-muted" style="font-size: 0.75rem;" th:text="${stats.membresiasActivas + ' contratos en vigor.'}">0 contratos en vigor.</div>
                                 </div>
                             </div>
                         </div>
@@ -89,8 +93,8 @@
                                     <i class="bi bi-person-exclamation"></i>
                                 </div>
                                 <div>
-                                    <div class="fw-bold" style="font-size: 0.9rem;">3 Trials por Caducar</div>
-                                    <div class="text-muted" style="font-size: 0.75rem;">Oportunidades de conversión detectadas.</div>
+                                    <div class="fw-bold" style="font-size: 0.9rem;">Revisiones de Staff</div>
+                                    <div class="text-muted" style="font-size: 0.75rem;">Plantilla operativa al 100%.</div>
                                 </div>
                             </div>
                         </div>
