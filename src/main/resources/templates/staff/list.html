@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/main :: content}">
+<head>
+    <title>Staff</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="h4 fw-bold mb-0">Gestión de Personal</h2>
+                <p class="text-muted small mb-0">Control de entrenadores, recepción y gerencia.</p>
+            </div>
+            <a th:href="@{/staff/nuevo}" class="ff-btn ff-btn-primary">
+                <i class="bi bi-person-badge-fill me-2"></i> Nuevo Perfil Staff
+            </a>
+        </div>
+
+        <div class="row g-4">
+            <div th:each="s : ${staffList}" class="col-12 col-md-6 col-lg-4">
+                <div class="ff-hud-card h-100">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="ff-hud-card p-0 rounded-circle overflow-hidden" style="width: 48px; height: 48px; border-color: var(--ff-primary);">
+                            <img th:if="${s.usuario.fotoUrl != null}" th:src="${s.usuario.fotoUrl}" class="w-100 h-100 object-fit-cover">
+                            <div th:unless="${s.usuario.fotoUrl != null}" class="w-100 h-100 d-grid place-items-center bg-secondary bg-opacity-25 text-muted">
+                                <i class="bi bi-person-fill fs-4"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="h6 fw-bold mb-0" th:text="${s.usuario.nombreCompleto}">Nombre Staff</h3>
+                            <span class="badge bg-primary bg-opacity-10 text-primary border border-primary-subtle" 
+                                  style="font-size: 0.65rem;" th:text="${s.usuario.perfil.display}">PERFIL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="text-muted small text-uppercase fw-bold" style="font-size: 0.6rem;">Especialidad</div>
+                        <div class="fw-bold" th:text="${s.especialidad != null ? s.especialidad : 'General'}">Fitness</div>
+                    </div>
+                    
+                    <div class="row g-2 mb-4">
+                        <div class="col-6">
+                            <div class="text-muted small text-uppercase fw-bold" style="font-size: 0.6rem;">Salario</div>
+                            <div class="fw-bold text-primary" th:text="${s.salarioBase + '€'}">0€</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-muted small text-uppercase fw-bold" style="font-size: 0.6rem;">Turno</div>
+                            <div class="fw-bold" th:text="${s.turno != null ? s.turno : 'N/A'}">Mañana</div>
+                        </div>
+                    </div>
+
+                    <div class="pt-3 border-top border-secondary-subtle d-flex justify-content-between align-items-center">
+                        <span class="small text-muted">
+                            <i class="bi bi-award me-1"></i>
+                            <span th:text="${s.puedeImpartirClases ? 'Instructor' : 'Operativo'}">Tipo</span>
+                        </span>
+                        <a th:href="@{/staff/{id}/editar(id=${s.id})}" class="btn btn-sm btn-outline-secondary border-secondary-subtle text-white">
+                            <i class="bi bi-gear"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${#lists.isEmpty(staffList)}" class="col-12 text-center py-5 ff-hud-card">
+                <i class="bi bi-person-workspace fs-1 opacity-25"></i>
+                <p class="mt-2 text-muted">No hay personal registrado en la plantilla.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

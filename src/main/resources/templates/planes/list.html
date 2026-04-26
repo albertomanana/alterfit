@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/main :: content}">
+<head>
+    <title>Planes</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="h4 fw-bold mb-0">Catálogo Comercial</h2>
+                <p class="text-muted small mb-0">Configuración de ofertas y precios.</p>
+            </div>
+            <a th:href="@{/planes/nuevo}" class="ff-btn ff-btn-primary">
+                <i class="bi bi-plus-lg me-2"></i> Nuevo Plan
+            </a>
+        </div>
+
+        <div class="row g-4">
+            <div th:each="p : ${planes}" class="col-12 col-md-6 col-lg-4">
+                <div class="ff-hud-card h-100 d-flex flex-column" th:style="${p.activo ? '' : 'opacity: 0.6;'}">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h3 class="h5 fw-bold mb-0" th:text="${p.nombre}">Nombre Plan</h3>
+                        <span th:if="${p.activo}" class="badge bg-success bg-opacity-10 text-success border border-success-subtle">Activo</span>
+                        <span th:unless="${p.activo}" class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary-subtle">Inactivo</span>
+                    </div>
+                    <p class="text-muted small flex-grow-1" th:text="${p.descripcion}">Descripción...</p>
+                    <div class="mt-4 pt-3 border-top border-secondary-subtle d-flex justify-content-between align-items-end">
+                        <div>
+                            <div class="text-muted small text-uppercase fw-bold" style="font-size: 0.6rem;">Precio / Duración</div>
+                            <div class="h4 mb-0 fw-bold text-primary" th:text="${p.precio + '€ / ' + p.duracionMeses + ' mes(es)'}">0€</div>
+                        </div>
+                        <a th:href="@{/planes/{id}/editar(id=${p.id})}" class="btn btn-sm btn-outline-secondary border-secondary-subtle text-white">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${#lists.isEmpty(planes)}" class="col-12 text-center py-5 ff-hud-card">
+                <i class="bi bi-tags fs-1 opacity-25"></i>
+                <p class="mt-2 text-muted">No hay planes definidos.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
