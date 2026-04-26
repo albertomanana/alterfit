@@ -1,0 +1,170 @@
+/* ─────────────────────────────────────────────────────────────
+   AtlasGym OS — Design System (Command Center UI)
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+    /* ── Dark Theme (Default) ── */
+    --ff-bg:              #05080F;
+    --ff-bg-elevated:     #0A1220;
+    --ff-surface:         rgba(18, 28, 46, 0.72);
+    --ff-surface-solid:   #121C2E;
+    --ff-surface-subtle:  rgba(22, 34, 56, 0.55);
+    --ff-surface-hover:   rgba(32, 48, 78, 0.65);
+
+    --ff-text:            #E6EEFB;
+    --ff-text-secondary:  #B8C7DE;
+    --ff-text-muted:      #7F92AE;
+    --ff-text-soft:       #5B6E8A;
+    --ff-text-inverse:    #ffffff;
+
+    --ff-primary:         #22C55E; /* Brand Green */
+    --ff-primary-glow:    rgba(34, 197, 94, 0.2);
+    
+    --ff-accent:          #38BDF8; /* HUD Cyan */
+    --ff-accent-strong:   #0EA5E9;
+    --ff-accent-glow:     rgba(56, 189, 248, 0.22);
+
+    --ff-border:          rgba(148, 176, 220, 0.10);
+    --ff-border-strong:   rgba(148, 176, 220, 0.18);
+
+    --sidebar-bg:         #070B15;
+    --sidebar-width:      260px;
+    --topbar-height:      64px;
+
+    --radius-md:    0.75rem;
+    --radius-lg:    1rem;
+    
+    --ff-glass-blur: blur(18px) saturate(140%);
+}
+
+/* ── Global Styles ── */
+body {
+    margin: 0;
+    background: 
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.10), transparent 36rem),
+        linear-gradient(180deg, #05080F 0%, #070C18 60%, #05080F 100%);
+    color: var(--ff-text);
+    font-family: "Inter", system-ui, sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── App Shell ── */
+.ff-app-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+.ff-sidebar {
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--ff-border);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.ff-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.ff-topbar {
+    height: var(--topbar-height);
+    background: rgba(10, 18, 32, 0.72);
+    backdrop-filter: var(--ff-glass-blur);
+    border-bottom: 1px solid var(--ff-border);
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.ff-content {
+    padding: 2rem;
+    flex: 1;
+}
+
+/* ── HUD Components ── */
+.ff-hud-card {
+    background: var(--ff-surface);
+    backdrop-filter: var(--ff-glass-blur);
+    border: 1px solid var(--ff-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.ff-hud-card:hover {
+    border-color: var(--ff-accent);
+    transform: translateY(-2px);
+}
+
+.ff-stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--ff-accent);
+    font-family: "IBM Plex Sans", monospace;
+}
+
+/* ── Navigation ── */
+.ff-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: var(--ff-text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    margin: 0.25rem 0.75rem;
+    transition: all 0.2s;
+}
+
+.ff-nav-link:hover {
+    background: var(--ff-surface-hover);
+    color: var(--ff-text);
+}
+
+.ff-nav-link.active {
+    background: var(--ff-accent-glow);
+    color: var(--ff-accent);
+    border: 1px solid var(--ff-accent);
+}
+
+/* ── Buttons ── */
+.ff-btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.ff-btn-primary {
+    background: var(--ff-primary);
+    color: white;
+}
+
+.ff-btn-primary:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 15px var(--ff-primary-glow);
+}
+
+.ff-btn-hud {
+    background: var(--ff-surface);
+    color: var(--ff-accent);
+    border-color: var(--ff-accent);
+}
+
+.ff-btn-hud:hover {
+    background: var(--ff-accent);
+    color: white;
+}

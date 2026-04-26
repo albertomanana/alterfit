@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:fragment="topbar" class="ff-topbar">
+    <div class="d-flex align-items-center w-100">
+        <!-- Search -->
+        <div class="flex-grow-1">
+            <div class="input-group input-group-sm" style="max-width: 400px;">
+                <span class="input-group-text bg-transparent border-secondary-subtle text-muted">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input type="text" class="form-control bg-transparent border-secondary-subtle text-white" placeholder="Buscar usuarios, staff, sesiones...">
+            </div>
+        </div>
+
+        <!-- User Info -->
+        <div class="d-flex align-items-center gap-3">
+            <div class="text-end d-none d-md-block">
+                <div class="fw-bold" style="font-size: 0.85rem;" th:text="${usuarioActual != null ? usuarioActual.nombre : 'Admin User'}">Admin User</div>
+                <div class="text-muted" style="font-size: 0.7rem;" th:text="${perfilActual != null ? perfilActual : 'ADMIN'}">ADMIN</div>
+            </div>
+            <div class="ff-hud-card p-2 rounded-circle" style="width: 40px; height: 40px; display: grid; place-items: center; border-color: var(--ff-primary);">
+                <i class="bi bi-person-fill text-primary"></i>
+            </div>
+        </div>
+    </div>
+</header>
+</html>

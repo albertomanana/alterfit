@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<aside th:fragment="sidebar" class="ff-sidebar">
+    <div class="p-4 text-center border-bottom border-secondary-subtle">
+        <h2 class="h4 fw-bold mb-0" style="color: var(--ff-primary); letter-spacing: -1px;">
+            ATLAS<span style="color: var(--ff-text);">GYM</span>
+        </h2>
+        <small class="text-uppercase fw-bold opacity-50" style="font-size: 0.65rem; letter-spacing: 2px;">Operations OS</small>
+    </div>
+
+    <nav class="mt-3 flex-grow-1">
+        <a th:href="@{/}" class="ff-nav-link" th:classappend="${activePage == 'dashboard' ? 'active' : ''}">
+            <i class="bi bi-speedometer2"></i>
+            <span>Dashboard</span>
+        </a>
+        
+        <div class="px-4 mt-4 mb-2 text-uppercase fw-bold opacity-50" style="font-size: 0.7rem; letter-spacing: 1px;">Gestión</div>
+        
+        <a th:href="@{/usuarios}" class="ff-nav-link" th:classappend="${activePage == 'usuarios' ? 'active' : ''}">
+            <i class="bi bi-people"></i>
+            <span>Usuarios</span>
+        </a>
+        <a th:href="@{/membresias}" class="ff-nav-link" th:classappend="${activePage == 'membresias' ? 'active' : ''}">
+            <i class="bi bi-card-checklist"></i>
+            <span>Membresías</span>
+        </a>
+        <a th:href="@{/pagos}" class="ff-nav-link" th:classappend="${activePage == 'pagos' ? 'active' : ''}">
+            <i class="bi bi-currency-dollar"></i>
+            <span>Pagos</span>
+        </a>
+
+        <div class="px-4 mt-4 mb-2 text-uppercase fw-bold opacity-50" style="font-size: 0.7rem; letter-spacing: 1px;">Operaciones</div>
+        
+        <a th:href="@{/asistencias}" class="ff-nav-link" th:classappend="${activePage == 'asistencias' ? 'active' : ''}">
+            <i class="bi bi-calendar-check"></i>
+            <span>Asistencias</span>
+        </a>
+        <a th:href="@{/rutinas}" class="ff-nav-link" th:classappend="${activePage == 'rutinas' ? 'active' : ''}">
+            <i class="bi bi-layout-text-sidebar-reverse"></i>
+            <span>Rutinas</span>
+        </a>
+
+        <div class="px-4 mt-4 mb-2 text-uppercase fw-bold opacity-50" style="font-size: 0.7rem; letter-spacing: 1px;">Administración</div>
+        
+        <a th:href="@{/finanzas}" class="ff-nav-link" th:classappend="${activePage == 'finanzas' ? 'active' : ''}">
+            <i class="bi bi-graph-up-arrow"></i>
+            <span>Finanzas</span>
+        </a>
+        <a th:href="@{/staff}" class="ff-nav-link" th:classappend="${activePage == 'staff' ? 'active' : ''}">
+            <i class="bi bi-person-badge"></i>
+            <span>Staff</span>
+        </a>
+    </nav>
+
+    <div class="p-3 border-top border-secondary-subtle">
+        <form th:action="@{/salir}" method="post">
+            <button type="submit" class="ff-nav-link w-100 border-0 bg-transparent text-danger">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        </form>
+    </div>
+</aside>
+</html>

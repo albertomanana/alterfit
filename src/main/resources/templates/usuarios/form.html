@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/main :: content}">
+<head>
+    <title th:text="${usuario.id == null ? 'Nuevo Usuario' : 'Editar Usuario'}">Formulario Usuario</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <div class="mb-4">
+            <a th:href="@{/usuarios}" class="text-muted text-decoration-none small">
+                <i class="bi bi-arrow-left"></i> Volver al listado
+            </a>
+            <h2 class="h4 fw-bold mt-2" th:text="${usuario.id == null ? 'Expediente de Nuevo Usuario' : 'Actualizar Usuario: ' + usuario.username}">Formulario</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="ff-hud-card">
+                    <form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post">
+                        <input type="hidden" th:field="*{id}">
+                        
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label class="form-label text-muted fw-bold small">NOMBRE</label>
+                                <input type="text" th:field="*{nombre}" class="form-control bg-transparent border-secondary-subtle text-white" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-muted fw-bold small">APELLIDOS</label>
+                                <input type="text" th:field="*{apellidos}" class="form-control bg-transparent border-secondary-subtle text-white">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-muted fw-bold small">EMAIL</label>
+                                <input type="email" th:field="*{email}" class="form-control bg-transparent border-secondary-subtle text-white" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-muted fw-bold small">NOMBRE DE USUARIO</label>
+                                <input type="text" th:field="*{username}" class="form-control bg-transparent border-secondary-subtle text-white" required>
+                            </div>
+                            
+                            <div th:if="${usuario.id == null}" class="col-md-6">
+                                <label class="form-label text-muted fw-bold small">CONTRASEÑA TEMPORAL</label>
+                                <input type="password" th:field="*{password}" class="form-control bg-transparent border-secondary-subtle text-white" required>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label class="form-label text-muted fw-bold small">PERFIL DE ACCESO</label>
+                                <select th:field="*{perfil}" class="form-select bg-transparent border-secondary-subtle text-white">
+                                    <option th:each="p : ${perfiles}" th:value="${p}" th:text="${p.display}" class="bg-dark"></option>
+                                </select>
+                            </div>
+
+                            <div class="col-12 mt-4 pt-3 border-top border-secondary-subtle d-flex justify-content-end gap-3">
+                                <a th:href="@{/usuarios}" class="ff-btn btn-outline-secondary border-secondary-subtle text-white">Cancelar</a>
+                                <button type="submit" class="ff-btn ff-btn-primary">
+                                    <i class="bi bi-save me-2"></i> Guardar Usuario
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="col-12 col-lg-4">
+                <div class="ff-hud-card mb-4">
+                    <h3 class="h6 fw-bold mb-3">Seguridad y Estado</h3>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" id="activoSwitch" th:checked="${usuario.activo}" disabled>
+                        <label class="form-check-label text-muted small" for="activoSwitch">Cuenta Activa</label>
+                    </div>
+                    <div class="p-3 bg-secondary bg-opacity-10 rounded border border-secondary-subtle">
+                        <small class="text-muted d-block mb-1">Nota de Seguridad:</small>
+                        <p class="small mb-0 opacity-75">Las contraseñas son cifradas mediante BCrypt. Al crear un usuario, se recomienda forzar el cambio de contraseña en el primer acceso.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
