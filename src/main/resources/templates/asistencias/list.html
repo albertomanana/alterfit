@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/main :: content}">
+<head>
+    <title>Asistencias</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <div class="row g-4 mb-4">
+            <div class="col-12 col-lg-5">
+                <div class="ff-hud-card h-100" style="border-color: var(--ff-primary);">
+                    <h2 class="h5 fw-bold mb-3"><i class="bi bi-lightning-charge-fill text-primary me-2"></i>Fast Check-In</h2>
+                    <p class="text-muted small mb-4">Escanee o seleccione un usuario para registrar su entrada inmediata.</p>
+                    
+                    <form th:action="@{/asistencias/checkin}" method="post">
+                        <div class="mb-3">
+                            <select name="usuarioId" class="form-select bg-transparent border-secondary-subtle text-white p-3" required>
+                                <option value="" class="bg-dark">-- Seleccionar Usuario --</option>
+                                <option th:each="u : ${usuarios}" th:value="${u.id}" th:text="${u.nombreCompleto}" class="bg-dark"></option>
+                            </select>
+                        </div>
+                        <button type="submit" class="ff-btn ff-btn-primary w-100 p-3 text-uppercase fw-bold">
+                            Registrar Entrada
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="col-12 col-lg-7">
+                <div class="ff-hud-card h-100">
+                    <h2 class="h5 fw-bold mb-4">Historial de Hoy</h2>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0" style="color: var(--ff-text);">
+                            <thead class="text-muted text-uppercase fw-bold" style="font-size: 0.65rem;">
+                                <tr>
+                                    <th class="border-secondary-subtle">Usuario</th>
+                                    <th class="border-secondary-subtle">Hora</th>
+                                    <th class="border-secondary-subtle">Tipo</th>
+                                </tr>
+                            </thead>
+                            <tbody class="border-0">
+                                <tr th:each="a : ${asistencias}" class="border-secondary-subtle">
+                                    <td>
+                                        <div class="fw-bold" th:text="${a.usuario.nombreCompleto}">Nombre</div>
+                                    </td>
+                                    <td class="ff-tabular small" th:text="${#temporals.format(a.fechaHora, 'HH:mm:ss')}">00:00:00</td>
+                                    <td>
+                                        <span class="badge bg-primary bg-opacity-10 text-primary border border-primary-subtle" 
+                                              style="font-size: 0.6rem;" th:text="${a.tipo}">LIBRE</span>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(asistencias)}">
+                                    <td colspan="3" class="text-center py-4 text-muted small">Sin actividad registrada hoy.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weekly Stats Mockup -->
+        <div class="ff-hud-card">
+            <h3 class="h6 fw-bold mb-4">Tendencia de Afluencia Semanal</h3>
+            <div style="height: 200px; border: 1px dashed var(--ff-border); border-radius: var(--radius-md); display: grid; place-items: center;">
+                <p class="text-muted opacity-50 mb-0">Módulo de analítica en tiempo real...</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
